@@ -1,5 +1,5 @@
 const { useRef, useState, useLayoutEffect, useMemo } = require('react')
-const produce = require('immer')
+const produce = require('immer').default
 
 const useFlow = ({ initialState, watch, actions: actionsConfig }) => {
   const [produceNewStateChangeCount, setProduceNewStateChangeCount] = useState(0)

@@ -59,7 +59,7 @@ Counter.actions = ({ getWatched, getState, produceNewState, actions }) => ({
 })
 ```
 
-`getWatched` returns the watch variables.
+`getWatched` returns the watched variables.
 
 `getState` returns the state variables.
 
