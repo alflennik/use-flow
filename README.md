@@ -9,8 +9,8 @@ const Counter = ({ minimumCount, maximumCount }) => {
     actions: { increment, decrement },
   } = useFlow({
     initialState: { count: minimumCount },
-    context: { minimumCount, maximumCount },
     actions: Counter.actions,
+    watch: { minimumCount, maximumCount },
   })
 
   return (
@@ -27,31 +27,31 @@ const Counter = ({ minimumCount, maximumCount }) => {
 
 `initialState` is a self-documenting object containing all properties of the state. You cannot add additional properties later.
 
-`context` contains props, callbacks or other data needed within the actions. You cannot add additional properties later.
+`watch` contains props, callbacks or other data needed within the actions. You cannot add additional properties later.
 
 `actions` returns an object of functions that have the power to mutate the state, described below.
 
 ### **Actions**
 
 ```js
-Counter.actions = ({ getContext, getState, produceNewState, actions }) => ({
+Counter.actions = ({ getWatched, getState, produceNewState, actions }) => ({
   increment: () => {
-    const { maximumCount } = getContext()
+    const { maximumCount } = getWatched()
     const { count } = getState()
     produceNewState(state => {
       state.count = 
-        count > maximumCount 
+        count >= maximumCount 
           ? maximumCount
           : count + 1
     })
   }
 
   decrement: () => {
-    const { minimumCount } = getContext()
+    const { minimumCount } = getWatched()
     const { count } = getState()
     produceNewState(state => {
       state.count = 
-        count < minimumCount 
+        count <= minimumCount 
           ? minimumCount
           : count - 1
     })

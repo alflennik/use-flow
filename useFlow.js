@@ -1,5 +1,5 @@
-import { useRef, useState, useLayoutEffect, useMemo } from 'react'
-import produce from 'immer'
+const { useRef, useState, useLayoutEffect, useMemo } = require('react')
+const produce = require('immer')
 
 const useFlow = ({ initialState, context, actions: actionsConfig }) => {
   const [produceNewStateChangeCount, setProduceNewStateChangeCount] = useState(0)
@@ -14,12 +14,12 @@ const useFlow = ({ initialState, context, actions: actionsConfig }) => {
     contextRef.current = context
   })
 
-  const setState = (newState) => {
+  const setState = newState => {
     stateRef.current = newState
-    setProduceNewStateChangeCount((count) => count + 1)
+    setProduceNewStateChangeCount(count => count + 1)
   }
 
-  const produceNewState = (stateProducer) => {
+  const produceNewState = stateProducer => {
     setState(produce(getState(), stateProducer))
   }
 
@@ -32,7 +32,7 @@ const useFlow = ({ initialState, context, actions: actionsConfig }) => {
     actions,
   }
   const createdActions = actionsConfig(actionArguments)
-  Object.keys(createdActions).forEach((key) => {
+  Object.keys(createdActions).forEach(key => {
     actions[key] = createdActions[key]
   })
 
@@ -44,4 +44,4 @@ const useFlow = ({ initialState, context, actions: actionsConfig }) => {
   return { state: memoizedState, actions: memoizedActions }
 }
 
-export default useFlow
+module.exports = useFlow
