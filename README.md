@@ -44,7 +44,7 @@ Counter.actions = ({ getWatched, getState, produceNewState, actions }) => ({
           ? maximumCount
           : count + 1
     })
-  }
+  },
 
   decrement: () => {
     const { minimumCount } = getWatched()
@@ -59,7 +59,7 @@ Counter.actions = ({ getWatched, getState, produceNewState, actions }) => ({
 })
 ```
 
-`getContext` returns the context variables.
+`getWatched` returns the watch variables.
 
 `getState` returns the state variables.
 

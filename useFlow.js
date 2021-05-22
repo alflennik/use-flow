@@ -1,17 +1,17 @@
 const { useRef, useState, useLayoutEffect, useMemo } = require('react')
 const produce = require('immer')
 
-const useFlow = ({ initialState, context, actions: actionsConfig }) => {
+const useFlow = ({ initialState, watch, actions: actionsConfig }) => {
   const [produceNewStateChangeCount, setProduceNewStateChangeCount] = useState(0)
 
-  const contextRef = useRef(Object.seal(context))
+  const watchedRef = useRef(Object.seal(watch))
   const stateRef = useRef(Object.seal(initialState))
 
-  const getContext = () => contextRef.current
+  const getWatched = () => watchedRef.current
   const getState = () => stateRef.current
 
   useLayoutEffect(() => {
-    contextRef.current = context
+    watchedRef.current = watch
   })
 
   const setState = newState => {
@@ -27,7 +27,7 @@ const useFlow = ({ initialState, context, actions: actionsConfig }) => {
   const actions = {}
   const actionArguments = {
     getState,
-    getContext,
+    getWatched,
     produceNewState,
     actions,
   }
