@@ -4,8 +4,8 @@ const produce = require('immer').default
 const useFlow = ({ initialState, watch, actions: actionsConfig }) => {
   const [produceNewStateChangeCount, setProduceNewStateChangeCount] = useState(0)
 
-  const watchedRef = useRef(Object.seal(watch))
-  const stateRef = useRef(Object.seal(initialState))
+  const watchedRef = useRef(watch)
+  const stateRef = useRef(initialState)
 
   const getWatched = () => watchedRef.current
   const getState = () => stateRef.current
@@ -15,6 +15,9 @@ const useFlow = ({ initialState, watch, actions: actionsConfig }) => {
   })
 
   const setState = newState => {
+    if (Object.keys(newState).length !== Object.keys(stateRef.current)) {
+      throw new Error('The initialState object must include all properties you intend to use.')
+    }
     stateRef.current = newState
     setProduceNewStateChangeCount(count => count + 1)
   }

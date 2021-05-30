@@ -4,7 +4,7 @@
   "description": "",
   "main": "useFlow.js",
   "scripts": {
-    "testPage": "parcel serve ./tests/index.html --open"
+    "testPage": "parcel serve ./testPage/index.html --open"
   },
   "author": "",
   "license": "MIT",
