@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-import testHook from '../testHook/testHook'
 import useFlow from './useFlow'
 
 describe('useFlow', () => {
   it('requires initialState to include all the properties', async () => {
-    await testHook(unmount => {
+    await mountHook(unmount => {
       const { actions } = useFlow({
         initialState: {},
         actions: ({ produceNewState }) => ({

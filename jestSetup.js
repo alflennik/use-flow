@@ -1,6 +1,6 @@
-import testHook from './src/testHook/testHook'
+import mountHook from 'mount-hook'
 
-global.testHook = testHook
+global.mountHook = mountHook
 
 let fetchCount = 0
 global.fetch = () => {

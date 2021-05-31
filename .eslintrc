@@ -4,7 +4,8 @@
   "env": {
     "jest/globals": true
   },
-  "rules": {
-    "import/no-commonjs": [2]
-  }
+  "globals": {
+    "mountHook": true
+  },
+  "rules": {}
 }
