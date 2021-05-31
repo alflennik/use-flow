@@ -2,9 +2,9 @@
   "name": "use-flow",
   "version": "1.0.0",
   "description": "",
-  "main": "useFlow.js",
+  "main": "src/useFlow.js",
   "scripts": {
-    "testPage": "parcel serve ./testPage/index.html --open"
+    "test": "jest"
   },
   "author": "",
   "license": "MIT",
@@ -16,9 +16,8 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "parcel": "^2.0.0-beta.3.1",
     "prettier": "^2.3.0",
-    "react": "16.8.0",
-    "react-dom": "16.8.0"
+    "react": "16.10.0",
+    "react-dom": "16.10.0"
   }
 }

@@ -99,22 +99,6 @@ Use Flow gives you a space to write reactive code, and it gives you a space, in 
 
 When you have a mix of immutable reactivity and mutable actions - when both sides are really clicking and reinforcing each other - useFlow can feel like rocket fuel for your flow.
 
-## Tips
-
-### Make Use Flow an Implementation Detail
-
-Use Flow is intended to hide inside your hooks or components where its power is needed, but from the outside, all your hooks' consumers see is a hook's normal API or a normal React component.
-
-### Wait Until You Need It
-
-It is probably not a great idea to use useFlow until you have started hitting complexity walls with the normal toolkit of hooks. Likewise, even when using useFlow in several of your components, most hooks and especially most components will not need it.
-
-### Testing
-
-Since useFlow hides within a hook or a component, there is no need for anything special towards testing - just keep testing the way you normally would.
-
-A great way to test hooks hooks in general is a library called, well, test hook, created by the same author of this library. It allows you to consume hooks within your tests, which otherwise is incredibly tricky to do.
-
 ## Next Steps
 
 - Install it!
