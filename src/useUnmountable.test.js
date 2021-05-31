@@ -1,5 +1,4 @@
 import { useEffect, useCallback } from 'react'
-import testHook from '../testHook/testHook'
 import useUnmountable from './useUnmountable'
 
 describe('useUnmountable', () => {
@@ -20,7 +19,7 @@ describe('useUnmountable', () => {
       return action
     }
 
-    await testHook(unmount => {
+    await mountHook(unmount => {
       const { unmountable, wrapAction } = useUnmountable()
       const action = useUnmountableAsyncAction(unmountable)
       const wrappedAction = wrapAction(action)

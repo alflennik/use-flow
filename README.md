@@ -1,6 +1,8 @@
-# Use Flow
+# useFlow
 
 > Get into a flow state when using useFlow to manage state flows.™️
+
+useFlow is a state management utility for React.
 
 ```js
 const Counter = ({ minimumCount, maximumCount }) => {
@@ -69,20 +71,20 @@ Counter.actions = ({ getWatched, getState, produceNewState, unmountable, actions
 
 `actions` is an object containing all the actions. This allows actions to call other actions, leading to more organized code.
 
-## You Might Need Use Flow If...
+## You Might Need useFlow If...
 
 - Your state from `useState` is stale and you have no idea how to fix it.
 - `useCallback`, `useMemo` and `useReducer` are giving you a migrane when your task seems like it should be simple.
 - You are resorting to hacks with `useRef`.
 - Every component you write seems to suddenly drop memory leak warnings without warning.
 
-## You Might Not Need Use Flow If ...
+## You Might Not Need useFlow If ...
 
 - You are not experiencing the problems described above.
 - Your component mostly consumes the data passed to it.
 - You are flowing well with useState and do not need more than that.
 
-Use Flow really shines when:
+useFlow really shines when:
 
 - Your component or hook is highly asynchronous, like you would see in:
   - A modal counting down the number of seconds until the user's session has expired.
@@ -95,7 +97,7 @@ Use Flow really shines when:
 
 A component or hook using useFlow will not need the more complex hooks like `useCallback`, `useMemo`, or `useReducer`, it won't need `useState` - which can get complicated when asynchronous state is involved - and it will remove most need for `useRef`. This is not to say those hooks are not worth knowing or using ... but often they feel like obstacles.
 
-Use Flow gives you a space to write reactive code, and it gives you a space, in the actions section, to write more traditional event-driven code.
+useFlow gives you a space to write reactive code, and it gives you a space, in the actions section, to write more traditional event-driven code.
 
 When you have a mix of immutable reactivity and mutable actions - when both sides are really clicking and reinforcing each other - useFlow can feel like rocket fuel for your flow.
 
@@ -113,4 +115,4 @@ When you have a mix of immutable reactivity and mutable actions - when both side
   ```
 
 - Try the tutorial.
-- Check out a more advanced example.
+- Check out some tips.

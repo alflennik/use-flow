@@ -1,7 +1,9 @@
 import { useRef, useState, useLayoutEffect, useMemo } from 'react'
 import produce from 'immer'
+import useUnmountable from './useUnmountable'
 
 const useFlow = ({ initialState, watched, actions: actionsConfig }) => {
+  const { unmountable, wrapAction } = useUnmountable()
   const [produceNewStateChangeCount, setProduceNewStateChangeCount] = useState(0)
 
   const watchedRef = useRef(watched)
@@ -15,7 +17,7 @@ const useFlow = ({ initialState, watched, actions: actionsConfig }) => {
   })
 
   const setState = newState => {
-    if (Object.keys(newState).length !== Object.keys(stateRef.current)) {
+    if (Object.keys(newState).length !== Object.keys(stateRef.current).length) {
       throw new Error('The initialState object must include all properties you intend to use.')
     }
     stateRef.current = newState
@@ -32,11 +34,12 @@ const useFlow = ({ initialState, watched, actions: actionsConfig }) => {
     getState,
     getWatched,
     produceNewState,
+    unmountable,
     actions,
   }
   const createdActions = actionsConfig(actionArguments)
   Object.keys(createdActions).forEach(key => {
-    actions[key] = createdActions[key]
+    actions[key] = wrapAction(createdActions[key])
   })
 
   // Without memoization, both the state and actions would appear to have changed every time
