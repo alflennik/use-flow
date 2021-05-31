@@ -1,20 +1,21 @@
 const { useRef, useState, useLayoutEffect, useMemo } = require('react')
 const produce = require('immer').default
 
-const useFlow = ({ initialState, watch, actions: actionsConfig }) => {
+const useFlow = ({ initialState, watched, actions: actionsConfig }) => {
   const [produceNewStateChangeCount, setProduceNewStateChangeCount] = useState(0)
 
-  const watchedRef = useRef(watch)
+  const watchedRef = useRef(watched)
   const stateRef = useRef(initialState)
 
   const getWatched = () => watchedRef.current
   const getState = () => stateRef.current
 
   useLayoutEffect(() => {
-    watchedRef.current = watch
+    watchedRef.current = watched
   })
 
   const setState = newState => {
+    // TODO: this doesn't work
     if (Object.keys(newState).length !== Object.keys(stateRef.current)) {
       throw new Error('The initialState object must include all properties you intend to use.')
     }

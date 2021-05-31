@@ -89,4 +89,4 @@ try {
 }
 ```
 
-The difference is due to the fact that `.catch()` can be wrapped but `try catch` cannot.
+The difference is due to the fact that `.catch()` can be wrapped by useFlow but `try catch` cannot.

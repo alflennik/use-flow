@@ -10,7 +10,7 @@ const Counter = ({ minimumCount, maximumCount }) => {
   } = useFlow({
     initialState: { count: minimumCount },
     actions: Counter.actions,
-    watch: { minimumCount, maximumCount },
+    watched: { minimumCount, maximumCount },
   })
 
   return (
@@ -27,7 +27,7 @@ const Counter = ({ minimumCount, maximumCount }) => {
 
 `initialState` is a self-documenting object containing all properties of the state.
 
-`watch` contains props, callbacks or other data needed within the actions.
+`watched` contains props, callbacks or other data needed within the actions.
 
 `actions` returns an object of functions that have the power to mutate the state, described below.
 
@@ -74,7 +74,7 @@ Counter.actions = ({ getWatched, getState, produceNewState, unmountable, actions
 - Your state from `useState` is stale and you have no idea how to fix it.
 - `useCallback`, `useMemo` and `useReducer` are giving you a migrane when your task seems like it should be simple.
 - You are resorting to hacks with `useRef`.
-- Every component you write seems to suddenly drop memory leak warnings ... without warning.
+- Every component you write seems to suddenly drop memory leak warnings without warning.
 
 ## You Might Not Need Use Flow If ...
 
@@ -91,17 +91,29 @@ Use Flow really shines when:
   - A notification component showing a stack of notifications that can be closed one by one.
   - A hook managing the ever-changing state of a form from key presses to validation errors and submission events.
 
-It is probably not a great idea to use useFlow until you have started hitting complexity walls with the normal toolkit of hooks. Likewise, even when using useFlow in your several components, most hooks and especially most components will not need it.
-
 ## Benefits
-
-Use Flow is a little utility that hides inside your hooks or components where its power is needed, but from the outside, all your hooks' consumers see is the hook's normal API or a normal React component. It's all standard React.
 
 A component or hook using useFlow will not need the more complex hooks like `useCallback`, `useMemo`, or `useReducer`, it won't need `useState` - which can get complicated when asynchronous state is involved - and it will remove most need for `useRef`. This is not to say those hooks are not worth knowing or using ... but often they feel like obstacles.
 
 Use Flow gives you a space to write reactive code, and it gives you a space, in the actions section, to write more traditional event-driven code.
 
 When you have a mix of immutable reactivity and mutable actions - when both sides are really clicking and reinforcing each other - useFlow can feel like rocket fuel for your flow.
+
+## Tips
+
+### Make Use Flow an Implementation Detail
+
+Use Flow is intended to hide inside your hooks or components where its power is needed, but from the outside, all your hooks' consumers see is a hook's normal API or a normal React component.
+
+### Wait Until You Need It
+
+It is probably not a great idea to use useFlow until you have started hitting complexity walls with the normal toolkit of hooks. Likewise, even when using useFlow in several of your components, most hooks and especially most components will not need it.
+
+### Testing
+
+Since useFlow hides within a hook or a component, there is no need for anything special towards testing - just keep testing the way you normally would.
+
+A great way to test hooks hooks in general is a library called, well, test hook, created by the same author of this library. It allows you to consume hooks within your tests, which otherwise is incredibly tricky to do.
 
 ## Next Steps
 
@@ -117,5 +129,4 @@ When you have a mix of immutable reactivity and mutable actions - when both side
   ```
 
 - Try the tutorial.
-- Learn about testing.
 - Check out a more advanced example.
