@@ -1,0 +1,10 @@
+{
+  "extends": ["standard", "standard-jsx", "standard-react", "plugin:jest/recommended", "prettier"],
+  "plugins": ["prefer-arrow", "prettier", "jest"],
+  "env": {
+    "jest/globals": true
+  },
+  "rules": {
+    "import/no-commonjs": [2]
+  }
+}

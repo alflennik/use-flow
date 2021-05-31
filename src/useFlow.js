@@ -1,5 +1,5 @@
-const { useRef, useState, useLayoutEffect, useMemo } = require('react')
-const produce = require('immer').default
+import { useRef, useState, useLayoutEffect, useMemo } from 'react'
+import produce from 'immer'
 
 const useFlow = ({ initialState, watched, actions: actionsConfig }) => {
   const [produceNewStateChangeCount, setProduceNewStateChangeCount] = useState(0)
@@ -15,7 +15,6 @@ const useFlow = ({ initialState, watched, actions: actionsConfig }) => {
   })
 
   const setState = newState => {
-    // TODO: this doesn't work
     if (Object.keys(newState).length !== Object.keys(stateRef.current)) {
       throw new Error('The initialState object must include all properties you intend to use.')
     }
@@ -48,4 +47,4 @@ const useFlow = ({ initialState, watched, actions: actionsConfig }) => {
   return { state: memoizedState, actions: memoizedActions }
 }
 
-module.exports = useFlow
+export default useFlow
