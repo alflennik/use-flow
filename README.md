@@ -67,7 +67,7 @@ Counter.actions = ({ getWatched, getState, produceNewState, unmountable, actions
 
 `produceNewState` accepts a function where the state can be mutated. This is the only way the state can be changed. It is powered by [Immer JS](https://immerjs.github.io/immer/docs/introduction).
 
-`unmountable` is documented on the fixing memory leaks page.
+`unmountable` allows you to stop execution when your components unmount (which causes React's memory leak warning), and it is [documented here](documentation/fixing-memory-leaks.md).
 
 `actions` is an object containing all the actions. This allows actions to call other actions, leading to more organized code.
 
@@ -114,5 +114,5 @@ When you have a mix of immutable reactivity and mutable actions - when both side
   yarn add use-flow-hook
   ```
 
-- Try the tutorial.
-- Check out some tips.
+- [Try the tutorial](documentation/tutorial.md), which should take more an hour (?) and walks you through the entire API, backwards and fowards, as you build a doggy viewer.
+- [Read the tips.](documentation/tips.md)
