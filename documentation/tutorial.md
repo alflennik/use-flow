@@ -1,10 +1,10 @@
 # useFlow Tutorial
 
-This tutorial, which I think it will take at least an hour, demonstrates how you can use useFlow to tackle some real engineering challenges - challenges that would be quite difficult to fully solve with vanilla hooks! - as you build a cute little doggy viewer. And it uses every API useFlow has to offer, so you'll be an expert by the end.
+This tutorial, which I think it will take at least an hour, demonstrates how you can use useFlow to tackle some real engineering challenges - challenges that would be quite difficult to fully solve with vanilla hooks! - as you build a cute little doggy viewer. And it uses every API useFlow has to offer, so you'll be an expert by the end, and I really mean that!
 
 ## Requirements
 
-You'll need some basic JavaScript and React knowledge, you'll need Node installed and a terminal, but I will try my best to make sure it isn't too intimidating to the relative newcomers out there.
+You'll need some basic JavaScript and React knowledge, you'll need Node installed and a terminal, but I'll try my best to make sure it isn't too intimidating to the relative newcomers out there.
 
 ## Off We Go!
 
@@ -14,7 +14,7 @@ In a terminal navigate to the folder within which you want to create the tutoria
 cd ~/Projects
 ```
 
-Run the command from [Create React App](https://reactjs.org/docs/create-a-new-react-app.html) that will create a use-flow-tutorial folder.
+Run the command from [Create React App](https://reactjs.org/docs/create-a-new-react-app.html) that will create a use-flow-tutorial folder and put a basic React app into it.
 
 ```
 npx create-react-app use-flow-tutorial
@@ -40,7 +40,7 @@ Open the tutorial folder in your code editor. If you are using VSCode, you can t
 code .
 ```
 
-If your terminal says the code command is not found, [this article](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line) might help.
+If your terminal says the `code` command is not found, [this article](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line) might help.
 
 In the code editor, take a look around. 
 
@@ -82,7 +82,7 @@ The message part is what we're interested in - this image is what we are going t
 
 But before we get ahead of ourselves, let's take a second to just make sure we can show an image before we get all fancy with API requests.
 
-In `Doggy.jsx`, let's create a simple component that show the image linked above.
+In `Doggy.jsx`, let's create a simple component that shows the image linked above.
 
 ```js
 import React from "react";
@@ -136,9 +136,9 @@ I came up with something like this:
 />
 ```
 
-Most of the bones are in place now, and I am itching to design the internal data structure for our Doggy component. But before we jump into that, let's write out all the boilerplate needed for useFlow to work.
+Most of the bones are in place now, and I am itching to design the internal data structure for our Doggy component, and by that, I mean choosing the names for the _state_ and _actions_ that we're going to add. State, in this context, is data (numbers, strings, objects, arrays, etc.) associated with the component, and actions are functions with the power to change the state. 
 
-TODO: explain state and actions in general.
+But before we jump into that, let's write out all the boilerplate needed for useFlow to work.
 
 ```js
 import React from "react";
@@ -180,7 +180,7 @@ Let's just go through this quickly!
   ```
   This snippet uses destructuring to pull out the state and actions from useFlow. Currently there is nothing there, which just means our component does nothing.
 
-  But even when we do start adding state and actions here, I want to note that the list does not be comprehensive, and it will only include state or actions which are needed within the React component. Since this is hard to explain without examples, just know there will be more on this later.
+  But even when we do start adding state and actions here, I want to note that the list does not be comprehensive, and it will only include state or actions which are needed within the React component part of the file. Since this is hard to explain without examples, just know there will be more on this later.
 - ```js
   initialState: {},
   ```
@@ -197,6 +197,8 @@ Let's just go through this quickly!
   This is where we define the actions. It looks quite strange now without any actions defined, but as we add actions it will become a lot easier to read.
 
   What it means is: `Doggy.actions` is a function, and that function returns an object.
+
+Part of the reason I wouldn't recommend using useFlow in a component unless you really need it is that is just has more boilerplate compared to a simple component that only needs one or two `useState` hooks.
 
 With the boilerplate on the page, we can now focus on the task at hand: figuring out how to pull a URL for a dog image from the dog.ceo API and stick it into the `img` tag.
 
@@ -292,7 +294,7 @@ Let's recap these changes quickly.
 
   You don't need to return anything from this function - Immer will detect all the changes you made to state within the callback and apply them.
 
-  This approach is less error-prone than other methods of handling immutable data, such as the React's setState or Redux's reducers, where you need to carefully avoid methods like `array.push()` which mutate the array. With `produceNewState`, you can simply use `array.push()`!
+  This approach is less error-prone than other methods of handling immutable data, such as React's setState or Redux's reducers, where you need to carefully avoid methods like `array.push()` which mutate the array. With `produceNewState`, you can simply use `array.push()`!
 
   If not all of that makes sense, don't worry, you'll see lots more examples of updating state later in this tutorial.
 
@@ -324,7 +326,7 @@ import useFlow from "use-flow-hook";
 };
 ```
 
-`useEffect` is a bread-and-butter hook in React for triggering any side effects and running code that shouldn't run on every render.
+`useEffect` is a bread-and-butter hook in React for triggering side effects and running code that shouldn't run on every render.
 
 Depending on your text editor, you may have already seen a warning appear on the `[]` part of `useEffect`, and the warning is asking you to add `fetchDoggy` to the dependency array.
 
@@ -332,14 +334,14 @@ Just like that, you've been plunged into a debate over how to think about `useEf
 
 The reason the warning appears is because Create React App comes with many linting rules, powered by ESLint, turned on by default.
 
-Now, you could add `fetchDoggy` to the dependency array and it would work perfectly fine, but instead of doing that, for this tutorial I'm going to have us turn this rule off. 
+Now, you could add `fetchDoggy` to the dependency array and it would work perfectly fine. If turning the rule off somehow makes you feel icky like a criminal, doing what it demands will indeed work, and you can go ahead with the tutorial. But instead of doing that, for this tutorial I'm going to have us turn this rule off. 
 
 I think a sidebar is needed here to explain. So how does the dependency array of `useEffect` actually work?
 
 Probably the reason this is confusing is that the dependency array has two functions:
 
 1) Tell React when you want your effect to run. In this case, once when the component mounts.
-2) Prevent stale data from making its way into the component.
+2) Prevent stale data from making its way into the effect code.
 
 Stale data can cause horrible bugs which require extended debugging sessions to catch and much longer to really understand how and why it's happening. And it's reason number 2 that the React team has turned on the rule.
 
@@ -359,7 +361,7 @@ This is where useFlow comes in to help. When using useFlow, you need to remember
 
 2. State is not safe to use in effects unless they are included in the dependency array. Again, this does not apply to state used inside the action.
 
-The real reason useFlow makes effects much less painful is that it helps you keep your effect extremely small. It allows you to use your effects to trigger useFlow actions, and useFlow actions are immune from stale data.
+But the real reason useFlow makes effects much less painful is that it helps you keep your effect extremely small. It allows you to use your effects to trigger useFlow actions, and useFlow actions are immune from stale data.
 
 So let's turn off that rule:
 
@@ -393,7 +395,7 @@ The solution is to return `null` from the component while it's waiting for data.
   )
 ```
 
-A little celebration is in order! But we can improve it even more:
+A little celebration is in order! But one line can make it ten times cooler:
 
 ```diff
   return (
@@ -405,7 +407,7 @@ A little celebration is in order! But we can improve it even more:
   )
 ```
 
-This change allows us to load more pictures just by clicking.
+This change allows us to load more pictures just by clicking!
 
 However, I am noticing that the fact you can click the image is not that obvious. Let's make the cursor change when you mouse over the image:
 
@@ -426,9 +428,21 @@ As is frequently the case with useFlow, things have gone so smoothly that I feel
 
 So let's optimize the performance of our app, which will be a great opportunity to take our tutorial from the simpler situation we've handled so far into something at the complexity-level of a real-world application and see how useFlow handles it.
 
-preloading
+Right now, each image takes a small-but-perceptible time to load. What would be cooler is for each image to load instantaneously. But how? 
 
-https://stackoverflow.com/questions/3646036/preloading-images-with-javascript
+How about instead of waiting for the user to click, we load the next image immediately in the background. When they finally do click, the image will be ready and waiting.
+
+So I googled a bit, and found [a snippet of JavaScript](https://stackoverflow.com/questions/3646036/preloading-images-with-javascript) on Stack Overflow that should do nicely.
+
+```js
+function preloadImage(url)
+{
+    var img=new Image();
+    img.src=url;
+}
+```
+
+Let's add this to the actions.
 
 ```diff
 Doggy.actions = ({ produceNewState }) => ({
@@ -447,10 +461,9 @@ Doggy.actions = ({ produceNewState }) => ({
 });
 ```
 
-- We're not quite ready yet to call preloadImage
-- We will need to revisit fetchDoggy
-- When we get a url, we should immediately fetch another url and preload it.
-- This means there are actually two parts
+And now what? Just like before, a good place to start would be to revisit the state for the component.
+
+Previously, we were dealing with one URL for the current image. Now, it seems we need to deal with two. The current one, and the upcoming one. That would be a good next step.
 
 ```diff
   const {
@@ -465,29 +478,27 @@ Doggy.actions = ({ produceNewState }) => ({
   });
 ```
 
-nextDoggyUrl
+This addition means we can now assign the `nextDoggyUrl` within an action. 
 
-Now making more sense
-- When the app calls fetchNextDoggy, it should return the nextDoggyUrl.
+Can you see that we only added it to the initialState but we didn't return it from useFlow? We don't need to return all the state we use from useFlow. Some state is entirely internal to the actions, and that's okay.
 
-So fetchDoggy will immediately change the nextDoggyUrl to the doggyUrl and then start fetching a new nextDoggyUrl.
+Next, I'm going to spend a minute or two staring at the fetchDoggy action with preloading in mind.
 
-we need to create a new fetchDoggy function, and rename the current fetchDoggy function.
-
-Let's call it loadImageUrl
-
-Now we can create another fetchDoggy function that uses preloadImage and loadImageUrl
+When we load a URL, we should immediately fetch another URL. Or something like that. But there does seem to be two parts to this. One to fetch a URL, and one to coordinate the requests.
 
 ```diff
 -useDoggy.actions = ({ produceNewState }) => ({
-+useDoggy.actions = ({ getState, produceNewState, actions }) => ({
++useDoggy.actions = ({ produceNewState, actions }) => ({
 + fetchDoggy: async () => {},
 +
 - fetchDoggy: async () => {
 + loadImageUrl: async () => {
     const rawResponse = await fetch("https://dog.ceo/api/breeds/image/random");
     const { message: doggyUrl } = await rawResponse.json();
-    return doggyUrl;
+-   produceNewState((state) => {
+-     state.doggyUrl = doggyUrl;
+-   });
++   return doggyUrl;
   },
 
   preloadImage: (url) => {
@@ -497,44 +508,50 @@ Now we can create another fetchDoggy function that uses preloadImage and loadIma
 });
 ```
 
-explain actions, getState
+Do you see what I'm thinking? I converted the old `fetchDoggy` into a utility with a new name, `loadImageUrl`, and made it stateless. Now both `loadImageUrl` and `preloadImage` are labeled little bits of code that we can use in the new, more advanced `fetchDoggy` action.
 
-```js
-  // Attempt 1 ... incomplete
+As for how to use these little bits of code, another change is the addition of `actions` next to `produceNewState`. Actions is an object that allows us to call one action from another action. Right now actions will contain three functions, `fetchDoggy`, `loadImageUrl` and `preloadImage`.
+
+But what to put in the `fetchDoggy` function? Probably we need to set the `doggyUrl` to the `nextDoggyUrl`, and we need to load the next image. 
+
+```diff
+-useDoggy.actions = ({ produceNewState, actions }) => ({
++useDoggy.actions = ({ getState, produceNewState, actions }) => ({
   fetchDoggy: async () => {
-    const { doggyUrl, nextDoggyUrl } = getState();
-    produceNewState(state => {
-      state.doggyUrl = nextDoggyUrl;
-    });
- 
-    const preloadDoggyUrl = await actions.loadImageUrl();
-    produceNewState(state => {
-      state.nextDoggyUrl = preloadDoggyUrl;
-    });
++   const { doggyUrl, nextDoggyUrl } = getState();
++   produceNewState(state => {
++     state.doggyUrl = nextDoggyUrl;
++   });
++
++   const preloadDoggyUrl = await actions.loadImageUrl();
++   produceNewState(state => {
++     state.nextDoggyUrl = preloadDoggyUrl;
++   });
   },
 ```
 
-It's still not quite right
-doggyUrl is unused
-both doggyUrl and nextDoggyUrl might be null
+First things first, I should note that this is not yet working. But this is what I wrote as a first attempt.
 
-```js
-  // Attempt 2 ... incomplete
+You'll notice a new helper function has appeared, `getState`. This function returns the object containing the latest state.
+
+One thing I'm thinking about `fetchDoggy` right now is that both `doggyUrl` and `nextDoggyUrl` might be `null`. I need to add some logic to handle the case where things haven't yet completely loaded.
+
+```diff
   fetchDoggy: async () => {
     const { doggyUrl, nextDoggyUrl } = getState();
-
-    const isFirstLoad = !doggyUrl;
-    if (isFirstLoad) {
-      const firstDoggyUrl = await actions.loadImageUrl();
-      produceNewState((state) => {
-        state.doggyUrl = firstDoggyUrl;
-      });
-    } else {
-      produceNewState((state) => {
-        state.doggyUrl = nextDoggyUrl;
-        state.nextDoggyUrl = null;
-      });
-    }
++
++   const isFirstLoad = !doggyUrl;
++   if (isFirstLoad) {
++     const firstDoggyUrl = await actions.loadImageUrl();
++     produceNewState((state) => {
++       state.doggyUrl = firstDoggyUrl;
++     });
++   } else {
+     produceNewState((state) => {
+       state.doggyUrl = nextDoggyUrl;
+       state.nextDoggyUrl = null;
+     });
++   }
 
     const preloadDoggyUrl = await actions.loadImageUrl();
     produceNewState((state) => {
@@ -543,17 +560,17 @@ both doggyUrl and nextDoggyUrl might be null
   },
 ```
 
-Now I'm reading through this a couple of times.
+I spent some time staring at this version.
 
-isFirstLoad, by the way
+The first time through, it will call loadImageUrl twice. Every other time it will call it once. That makes sense to me.
 
-The first time through, it will call loadImageUrl twice. Every other time it will call it once.
+After a few dozen more read-throughs I've built up enough resolve to peek over at the browser and check if it's working. 
 
-This seems like it might work.
+To my pleasant surprise, it does seem to be working!
 
-I ran it, and it's still working, but when I looked in the network tab, I was expecting to see the next image being loaded in advance, but it wasn't.
+Not so fast. I opened the network tab in Chrome DevTools, and watched the images load, and I noticed that the latest image loaded is the one I see on the screen. It's not preloading! And come to think of it, the performance hasn't improved.
 
-I looked at the code one more time, and I realized - I haven't called preloadImage!
+Ah, I think I see.
 
 ```diff
     const preloadDoggyUrl = await actions.loadImageUrl();
@@ -564,13 +581,23 @@ I looked at the code one more time, and I realized - I haven't called preloadIma
   },
 ```
 
-after a page refresh, I saw what I expected, an extra image was appearing in the network tab... and the image loading was now instantaneous.
+If it's not preloading, maybe that means you never tried to preload anything.
 
-now the time for stress testing. Naturally I click as fast as I could - and to my surprise, the doggy disappeared! There's a bug. But why?
+Let's try again.
 
-I realized that strange behavior might occur if you call fetchDoggy rapidly. If two fetchDoggy calls run at the same time, the line doggyUrl = nextDoggyUrl would set doggyUrl to null if nextDoggyUrl hadn't finished loading.
+After a page refresh, I saw what I expected, an extra image was appearing in the network tab... and the image loading was now instantaneous. Great!
 
-The solution is to make sure fetchDoggy will return early if another instance is already working.
+Naturally the next thing to do is click through doggies as fast as I can. But boom, one doggy in and it seems we get stuck on a white screen. No errors.
+
+This is a bug. But why?
+
+Let me think.
+
+Okay, I realized that strange behavior might occur if two fetchDoggy calls run at the same time.
+
+The line `doggyUrl = nextDoggyUrl` would set `doggyUrl` to `null` if `nextDoggyUrl` hadn't finished loading. And if `doggyUrl` is `null` the component will not return the `img` so you'll get a white screen. And if there's no image, there's no way to get to the next doggy.
+
+The solution is to make sure `fetchDoggy` will stop itself if another instance of `fetchDoggy` is already in progress.
 
 ```diff
   fetchDoggy: async () => {
@@ -584,12 +611,14 @@ The solution is to make sure fetchDoggy will return early if another instance is
     const isFirstLoad = !doggyUrl;
 ```
 
+Here's the whole file so far!
+
 ```js
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import useFlow from "use-flow-hook";
 
-const Doggy = ({ paid }) => {
+const Doggy = () => {
   const {
     state: { doggyUrl },
     actions: { fetchDoggy },
@@ -599,7 +628,6 @@ const Doggy = ({ paid }) => {
       nextDoggyUrl: null,
     },
     actions: Doggy.actions,
-    watched: { paid },
   });
 
   useEffect(() => {
@@ -662,13 +690,17 @@ Doggy.actions = ({ getState, produceNewState, actions }) => ({
 export default Doggy;
 ```
 
-If that code seems difficult to write, that's because it was. This is a tricky feature to implement, in any app.
+I thought it would be interesting to share a bit of the existential angst of watching code fail in various ways before it eventually succeeds, and it is nice now to be on the other side where it is now working properly.
 
-Reflect on writing this without useFlow
+I would say that writing this code was not particularly easy, but what made it hard was not React, or useFlow, but the problem at hand that we were grappling with.
 
-But we're not done, because there is still a bug waiting to be discovered. To illustrate, let's introduce a new feature - a doggy limit. When more than three doggies have been viewed, the app will ask the user to pay a small fee.
+Now, consider writing this with vanilla hooks. Perhaps I'm biased, but I think it would have been much harder to do all this inside a bunch of `useCallback` and `useEffect` calls, with `useState` and `useRef` to pass around the state. Perhaps it wouldn't even be worth the effort.
 
-We will have to build a simple router.
+This is why I decided to open source useFlow in the first place - after a few projects where I felt like I couldn't get from point A to point B without it, I started feeling like other people might enjoy a utility like this.
+
+But we haven't seen all of useFlow's APIs yet, and furthermore, there is a very common issue with this component lurking beneath the surface, waiting to pop up. So let's soldier on and imagine our app has gotten a bit further and now contains a few pages.
+
+Here is a new `App.jsx` to use - go ahead and replace the entire content of the file with this:
 
 ```js
 import { useEffect, useState } from "react";
@@ -702,12 +734,84 @@ function App() {
 }
 
 export default App;
-
 ```
 
-Are we getting a little contrived? Yes, perhaps, but I think it's important to demonstrate
+I implemented a little router here, using the hash part of the URL. It's sort of beside the point to get to deep into it here, but, heck, I think it would still be fun to explain how it works!
 
-http://localhost:3000/#subscribe
+Before I jump into the code itself, just a little context: the hash part of a URL is anything followed by `#`, (e.g. `http://example.com/doggy#this-is-the-hash-part`) and its main function, and probably the reason it was originally introduced, was to support links from one part of a page to another. However, another capability it has is that it can be used to keep track of what "page" (i.e. the content filling the window) is showing _without leaving the actual HTML page_ the URL bar is pointing at.
+
+This is crucial because we are working on a single page app, and having the browser actually load another page would be basically equivalent to force quiting and relanching our app, which is definitely not our intention.
+
+Even though there's a newer and more purpose-built API for controlling the URL that doesn't need the hash, for whatever complicated-and-sort-of-meaningless reasons the hash is still the simplest and meanest way to switch between pages. All you need is a little event listener and you can call `document.location.hash = "#something"` and it will update the URL and trigger your event listener, which can then switch the page that's showing.
+
+Whenever I create an app using simple HTML and no framework, no React, I do something like that. And it also works in React, of course, which is what I've done here.
+
+- ```js
+  const [page, setPage] = useState(document.location.hash);
+  ```
+  This line uses `useState` to create a page variable. This is going to store the current page, which is stored in the hash. The current hash value is its starting value.
+- ```js
+  const onHashChange = () => {
+    setPage(document.location.hash);
+  };
+  window.addEventListener("hashchange", onHashChange, false);
+  ```
+  This snippet is inside the `useEffect`, and it attaches the event listener that will fire whenever the hash changes. The `false` is something to do with event bubbling (?) and the event listener won't work without it, it seems.
+
+  When the hash changes, we need to synchronize its latest value with the state of our component, and that's what `setPage` is doing.
+
+  Now to explain why `onHashChange` is a special function separate from the event listener:
+- ```js
+  return () => {
+    window.removeEventListener("hashchange", onHashChange, false);
+  };
+  ```
+  React requires event listeners to be cleaned up by returning a function from `useEffect`. And a peculiarity of `removeEventListener` is that you need to call it with exactly the same function variable that you used when you created it.
+- ```js
+  {(() => {
+    // ...
+  })()}
+  ```
+  Okay, what is this barrage of symbols?
+
+  The outer `{}` is JSX-specific, and it allows us to insert some JavaScript at this point.
+
+  The inner `() => {}` is the familiar syntax for an arrow function.
+
+  The function is wrapped with parentheses.
+
+  Following the parentheses wrapping the function is `()`, which calls the function.
+
+  So, OK, but what does it actually do? This is a way to insert a block of code somewhere a block of code is not permitted. JSX is one such place: normally you can only put a single expression inside `{}`, which is the same reason you can use `{isTrue ? true : false}` in JSX but not a full if statement like `{if (isTrue) { true; } else { false; }}`.
+
+  Given this design limitation of JSX, that means we can't use a switch statement inside JSX. But what if the switch makes the most sense inside the JSX? This trick will give you a way to add insert it there.
+
+  By the way this type of expression is called an IIFE, an "immediately invoked function expression."
+- ```js
+  switch (page) {
+    case "#subscribe":
+      return "Please pay a $3.00 per month subscription to continue viewing doggies.";
+    default:
+      return <Doggy />;
+  }
+  ```
+  This is the actual meat of the router. The default page is the Doggy component, and as you can see, I added another page that just has some text on it, and it's asking the user to pay for their dang doggies.
+  
+  Give it a try and visit `http://localhost:3000/#subscribe` - you should see the message.
+
+With a simple router in hand, we can return to `Doggy.jsx`. So what is my goal here, and why am I going to all this effort to introduce a second page?
+
+The reason is I want to show you a way our current app can explode. Ok, maybe explode is a bit dramatic a term - but I want to show you that the way we built our app, which felt pretty much perfect before, is vulnerable to a really common React warning that pops up whenever you start using async code.
+
+So let's send the user to the subscription page when they've viewed their alloted number of free doggy views, which is 3. More than 3, and they'll have to pay us.
+
+```diff
+    initialState: {
+      doggyUrl: null,
+      nextDoggyUrl: null,
++     freeDoggiesViewed: 0,
+    },
+```
 
 ```diff
   preloadImage: (url) => {
@@ -717,7 +821,7 @@ http://localhost:3000/#subscribe
 +
 + countFreeDoggies: () => {
 +   produceNewState((state) => {
-+     state.freeDoggiesViewed = state.freeDoggiesViewed + 1;
++     state.freeDoggiesViewed += 1;
 +   });
 +
 +   const { freeDoggiesViewed } = getState();
@@ -729,7 +833,9 @@ http://localhost:3000/#subscribe
 });
 ```
 
-Need to add two effects
+Now that we have the action, we need to make sure the action will actually run.
+
+We could call `actions.countFreeDoggies()` from the `fetchDoggy` action, but `fetchDoggy`, to me, is already at the limit of the amount of complexity I want in a single function, so instead I want to put it in an effect, and have React call it whenever the `doggyUrl` changes.
 
 ```diff
   const {
@@ -748,29 +854,63 @@ Need to add two effects
   useEffect(() => {
     fetchDoggy();
   }, []);
-
++
 + useEffect(() => {
 +    if (doggyUrl) {
 +     countFreeDoggies();
 +   }
 + }, [doggyUrl]);
-+
 ```
+
+Since `doggyUrl` can be `null` I had to put an if statement around `countFreeDoggies`.
+
+And there it is, not only should you now experience a three doggy limit, you should also see the following warning in the console:
 
 ```
 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
     at Doggy (http://localhost:3000/static/js/main.chunk.js:211:60)
 ```
 
-It works! But look at your console. You should see this warning.
+If you have worked with React much before I am almost certain that you've seen this warning. Maybe you've seen it a thousand times.
 
-Why
+Why does it happen? Is there really a memory leak? Is it as serious as it sounds?
 
-Common problem with React async code.
-Quite difficult to fix
-useFlow provides a solution for it
-Meant to be used wherever async code is used, as a best practice
-To be clear, this is not a problem with useFlow, it is just that useFlow actually has a solution.
+The answer is, it's probably not serious, but React has no way to tell if it is serious. All React knows is that _a component that's no longer on the page is still running around and doing stuff_. It is a bit strange to imagine that a component which is no longer on the page is still functioning somehow. This is something kind of amazing and quite unnatural, and it emerges from the way JavaScript and the web do garbage collection.
+
+So what is our component actually doing from beyond the grave?
+
+What happens is something like this:
+
+1. The 3rd doggy image is showing on the page.
+2. The user clicks the image to load another.
+3. The `fetchDoggy` action fires.
+4. `fetchDoggy` updates the `doggyUrl`
+5. `countFreeDoggies` fires because the `doggyUrl` changed.
+6. `countFreeDoggies` sees that more than 3 free doggies were viewed and changes the page to `#subscribe`.
+7. React unmounts the Doggy component since we are now on the subscribe page.
+
+At this point, everything makes sense. Except for one detail. `fetchDoggy` is still running. So here's what happens next.
+
+8. `fetchDoggy` finishes loading the `nextDoggyUrl` and sets it.
+9. React notices that this component - which is invisible and unmounted - is running around and doing stuff. This could be bad, because it could really be a memory leak. And it triggers the warning at this point.
+
+And let me just finish off this play-by-play by showing what actually happens to our supposed memory-leak:
+
+10. `fetchDoggy` completes.
+11. The JavaScript engine, which is run by the browser, runs the garbage collector and detects that no variables or references exist to the old <Doggy /> instance, and it is therefore safe to delete from memory.
+12. There is no memory leak. In this case.
+
+A case that would actually be a memory leak would be something like `setInterval` which would never actually complete.
+
+React gets a lot of heat for this warning, but it's really just trying to be helpful, although it does end up being a bit overdramatic in most cases.
+
+Normally, fixing this warning is not very easy to do. Technically, the "mistake" we made was not providing a cleanup function to be run when the component unmounts to cancel all pending `fetch` requests. But in practical terms, cleaning up `fetchDoggy()` is not easy. `fetch` does not provide any simple way to cancel its requests.
+
+So this is an unsolved problem requiring hacky solutions that paper over the problem or hide the warning but really do not solve it at its root.
+
+Except in useFlow, we can actually solve this, in a way that documents our intent and immediately shuts our component down when it unmounts.
+
+This is a feature I think is really cool, because it is such a common problem in async React code, and yet I've never seen an approach that can address it pretty much universally.
 
 ```diff
 - Doggy.actions = ({ getState, produceNewState, actions }) => ({
@@ -797,7 +937,26 @@ To be clear, this is not a problem with useFlow, it is just that useFlow actuall
   },
 ```
 
-These subscription warnings are getting annoying, to wrap up this tutorial, let's allow our users to pay.
+What we've done is add our fourth helper, `unmountable`, and used it to wrap all our promises.
+
+When the component unmounts, the promises will reject - they will actually throw an error - and therefore the code following the promise will never execute.
+
+The fact they throw an error isn't a problem because useFlow is able to catch that specific error.
+
+Cool, right?
+
+By the way, in case you're curious about the `.then()` I added to `loadImageUrl`, it is equivalent to:
+
+```js
+      const rawResponse = await unmountable(fetch("https://dog.ceo/api/breeds/image/random"));
+      const { message: doggyUrl } = await unmountable(rawResponse.json());
+```
+
+I just thought the latter was cleaner code.
+
+You will notice that the warning no longer appears. We really solved it.
+
+There is one more API we haven't used yet, and the fact I can only see three dogs is starting to annoy me, so let's introduce an ability for users to actually pay us and get access to unlimited doggies.
 
 ```diff
         switch (page) {
@@ -819,6 +978,13 @@ These subscription warnings are getting annoying, to wrap up this tutorial, let'
         }
 ```
 
+- This adds a link which says "Pay" on the subscription page.
+- Then we add a page at the hash "#paid" which shows the same Doggy component.
+- We add a prop to the `Doggy` component for whether the user is paying or not.
+- The `<>...</>` is a React fragment. Based on the way JSX converts itself into JavaScript functions under the hood, it's required when you want to return more than one string or child from a component.
+
+We now need to add this `paid` prop to the `Doggy` component.
+
 ```diff
 -const Doggy = () => {
 +const Doggy = ({ paid }) => {
@@ -836,7 +1002,9 @@ These subscription warnings are getting annoying, to wrap up this tutorial, let'
   });
 ```
 
-explain watched
+The first part is typical React, but what is `watched`? `watched` allows you to bring external data into your actions - data that you are not actually updating or synchronizing and therefore is not state, but just want to have available.
+
+This will allow us to disable the free doggy counting, using the final helper, `getWatched`.
 
 ```diff
 -Doggy.actions = ({ getState, produceNewState, unmountable, actions }) => ({
@@ -855,7 +1023,7 @@ explain watched
 +   if (paid) return
 +
     produceNewState((state) => {
-      state.freeDoggiesViewed = state.freeDoggiesViewed + 1;
+      state.freeDoggiesViewed += 1;
     });
 
     const { freeDoggiesViewed } = getState();
@@ -866,7 +1034,9 @@ explain watched
   },
 ```
 
-Let's see where we ended up
+Now, after you see the subscribe page, you can click pay and enjoy access to unlimited doggies.
+
+Before I wrap this up, let's take a nice look over the entire `Doggy.jsx` file.
 
 ```js
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -963,7 +1133,7 @@ Doggy.actions = ({
     if (paid) return;
 
     produceNewState((state) => {
-      state.freeDoggiesViewed = state.freeDoggiesViewed + 1;
+      state.freeDoggiesViewed += 1;
     });
 
     const { freeDoggiesViewed } = getState();
@@ -977,7 +1147,19 @@ Doggy.actions = ({
 export default Doggy;
 ```
 
-You've seen all useFlow has to offer, every API.
+I think, in terms of size and complexity, that's a really satisfing amount of functionality in one component. But as it grows and gets more complicated, that's where the benefits of hooks start to come in.
+
+Before, using the class syntax, it was extremely difficult to pull out logic from a single component into multiple files.
+
+Now, with hooks, it's totally doable to pull apart a component like this into two or three files, each which maintains its own internal state.
+
+For this Doggy application, there could be one component for the UI, a hook for managing the doggyUrl and a hook for tracking the subscription status. And you could gradually refactor the component we wrote above into a more scaleable approach as the complexity organically grows.
+
+Basically, what I'm saying is, what you see here in this tutorial is just the beginning. useFlow is powerful in one component, but it can function within a reactive tree of components. It's crazy powerful stuff.
+
+The only hard part is finding a challenge worthy of it!
+
+Bringing this tutorial to a close, you've now seen all useFlow has to offer, every API. I hope you found it useful and/or interesting, and for my part it was fun showing it off.
 
 With that, our scheme to make a fortune selling access to a free an open source is almost complete.
 
