@@ -114,5 +114,5 @@ When you have a mix of immutable reactivity and mutable actions - when both side
   yarn add use-flow-hook
   ```
 
-- [Try the tutorial](documentation/tutorial.md), which should take more an hour (?) and walks you through the entire API, backwards and fowards, as you build a doggy viewer.
+- [Try the tutorial](documentation/tutorial.md), which should take around an hour and walks you through the entire API, backwards and fowards, as you build a doggy viewer.
 - [Read the tips.](documentation/tips.md)

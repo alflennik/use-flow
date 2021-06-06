@@ -2,9 +2,9 @@
 
 One of the most common React warnings is "Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application." This warning pops up anywhere you have async code, i.e. promises, mixed into your React components and hooks. 
 
-You may have noticed the warning is inconsistent - it rarely appears in normal situations, but when you start testing your components or performing a less common interaction like logging out or partially refreshing the page, it suddently occurs.
+You may have noticed the warning is inconsistent - it rarely appears in normal situations, but when you start testing your components or performing a less common interaction like logging out or partially refreshing the page, it suddenly occurs.
 
-Use Flow has a solution to this problem!
+useFlow has a solution to this problem!
 
 First, here is a simplified component which could produce the warning:
 
@@ -25,9 +25,9 @@ useCurrentWeather(() => {
 })
 ```
 
-The call to setWeatherReport will trigger the warning if its parent has unmounted before the fetch has completed. This is surprisingly easy to happen - clicking quickly through pages in your app could be enough to trigger it.
+The call to `setWeatherReport` will trigger the warning if its parent has unmounted before the fetch has completed. This is surprisingly easy to happen - clicking quickly through pages in your app could be enough to trigger it.
 
-The official solution is to add a cleanup function to the useEffect, but many promises are not easily cancelable, fetch included, so solving this is going to be tricky.
+The official solution is to add a cleanup function to the `useEffect`, but many promises are not easily cancelable, fetch included, so solving this is going to be tricky.
 
 Meanwhile, the most obvious solution, to [prevent state updates when the component has unmounted](https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html), has been called an antipattern by the React core team.
 
