@@ -183,7 +183,7 @@ Let's just go through this quickly!
   ```
   This snippet uses destructuring to pull out the state and actions from useFlow. Currently there is nothing there, which just means our component does nothing.
 
-  But even when we do start adding state and actions here, I want to note that the list does not be comprehensive, and it will only include state or actions which are needed within the React component part of the file. Since this is hard to explain without examples, just know there will be more on this later.
+  But even when we do start adding state and actions here, I want to note that the list does not need to be comprehensive, and it will only include state or actions which are needed within the React component part of the file. Since this is hard to explain without examples, just know there will be more on this later.
 - ```js
   initialState: {},
   ```
@@ -592,7 +592,6 @@ The solution is to make sure `fetchDoggy` will stop itself if another instance o
 Here's the whole file so far!
 
 ```js
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import useFlow from "use-flow-hook";
 
@@ -1019,7 +1018,6 @@ Now, after you see the subscribe page, you can click "Pay" and enjoy access to u
 Before I wrap this up, let's take a nice look over the entire `Doggy.jsx` file.
 
 ```js
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import useFlow from "use-flow-hook";
 
@@ -1131,7 +1129,7 @@ I think, in terms of size and complexity, that's a really satisfing amount of fu
 
 Before, using the class syntax, it was extremely difficult to pull out logic from a single component into multiple files.
 
-Hooks give you everthing you need to break a component like this into two or three files, each with its own internal state, its own abstractions, and its own hidden complexities. For this Doggy application, there might eventually be one component for the UI, a hook for managing the `doggyUrl` and a hook for tracking the subscription status. Transitioning to a more expansive architecture can occur gradually as the project develops.
+Hooks give you everything you need to break a component like this into two or three files, each with its own internal state, its own abstractions, and its own hidden complexities. For this Doggy application, there might eventually be one component for the UI, a hook for managing the `doggyUrl` and a hook for tracking the subscription status. Transitioning to a more expansive architecture can occur gradually as the project develops.
 
 Basically what I'm saying is, applying useFlow to one component in this tutorial is just the beginning. When you scale it up across a reactive tree of components, that's where you will start finding it difficult to go back to the way things were before.
 
