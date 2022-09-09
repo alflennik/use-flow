@@ -34,7 +34,7 @@ npm start
 
 At this point, you should see the React start page in your browser.
 
-Open the tutorial folder in your code editor. If you are using VSCode, you can try running this command (in a second terminal window) to view the code:
+Open the tutorial folder in your code editor. Feel free to use any code editor you want. If you are using VSCode, you can try running this command (in a second terminal window) to view the code:
 
 ```
 code .
@@ -88,7 +88,7 @@ The message part is what we're interested in - this image is what we are going t
 
 But before we get ahead of ourselves, let's take a second to just make sure we can show an image before we get all fancy with API requests.
 
-In `Doggy.jsx`, let's create a simple component that shows the image linked above.
+In `Doggy.jsx`, let's create an oversimplified component that shows the image linked above.
 
 ```js
 import React from "react";
@@ -201,7 +201,7 @@ Let's just go through this quickly!
 
   What it means is: `Doggy.actions` is a function, and that function returns an object.
 
-Part of the reason I wouldn't recommend using useFlow in a component unless you really need it is that is just has more boilerplate compared to a simple component that only needs one or two `useState` hooks.
+Part of the reason I wouldn't recommend using useFlow in a component unless you really need it is that its boilerplate would complicate a component which only needs one or two `useState` hooks.
 
 With the boilerplate on the page, we can now focus on the task at hand: figuring out how to pull a URL for a dog image from the dog.ceo API and stick it into the `img` tag.
 
@@ -256,7 +256,7 @@ useDoggy.actions = () => ({
 });
 ```
 
-This is much closer, but we have still not set the `doggyUrl`! `const { message: doggyUrl }` simply sets a variable within the action, but this is not the same as setting the state within useFlow.
+This is much closer, but we have still not set the `doggyUrl`! `const { message: doggyUrl }` sets a local variable within the action, but this is not the same as setting the state within useFlow.
 
 By the way, I decided to rename `message` to `doggyUrl` because I felt that message was misleadingly generic sounding.
 
@@ -406,7 +406,7 @@ So far so good! We've set up a doggy viewer component, and if you're anything li
 
 As is frequently the case with useFlow, things have gone so smoothly that I feel a temptation - no, a _need_ - to elevate the experience. If it's so easy to do, why not!
 
-So let's optimize the performance of our app, which will be a great opportunity to take our tutorial from the simpler situation we've handled so far into something at the complexity-level of a real-world application and see how useFlow handles it.
+So let's optimize the performance of our app, which will be a great opportunity to take our tutorial from the oversimplified situation we've handled so far into something at the complexity-level of a real-world application and see how useFlow handles it.
 
 Right now, each image takes a small-but-perceptible time to load. What would be cooler is for each image to load instantaneously. But how? 
 

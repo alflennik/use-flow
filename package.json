@@ -1,8 +1,10 @@
 {
   "name": "use-flow-hook",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.1",
   "description": "A state management utility for React.",
-  "keywords": ["react"],
+  "keywords": [
+    "react"
+  ],
   "main": "src/useFlow.js",
   "scripts": {
     "test": "jest"
@@ -14,10 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "immer": "^9.0.2"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.4",
